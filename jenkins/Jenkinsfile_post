@@ -1,0 +1,37 @@
+pipeline {
+    agent any     
+
+    stages {
+        stage('STAGE1'){    
+            steps {
+                sh 'sleep 5'
+                echo "This is from STAGE1"
+            }
+        }  
+
+        stage('STAGE2'){ steps {
+                sh 'sleep 5'
+                echo "This is from STAGE2"
+            }
+        }       
+    }
+
+    post{
+        always{
+            cleanWs()
+            echo "This block run always when its SUCCESS/FAILURE/ABORT"            
+        }
+
+        failure{
+            echo "This block run if builds get FAIL"
+        }
+
+        aborted{
+            echo "This block run if builds get ABORTED"
+        }
+
+        unstable{
+             echo "This block run if build is UNSTABLE"
+        }
+    }
+}

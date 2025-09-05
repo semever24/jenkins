@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+
+    environment{
+        GIT_URL = 'https://github.com/semever24/jenkins.git'
+        GIT_BRANCH = 'main'
+        GIT_CREDENTIALS = 'github'
+    }
+
+    stages{
+        stage('CHECKOUT'){
+            steps{
+                //Java groovy format
+                script{
+                    checkout scmGit(
+                            branches: [[name: "${GIT_BRANCH}"]], 
+                            extensions: [], 
+                            userRemoteConfigs: [[credentialsId: "${GIT_CREDENTIALS}", url: "${GIT_URL}"]]
+                            )
+                }
+            }
+        }
+
+        stage('CHECK'){
+            steps{
+                //Shell format
+                sh '''
+                    ls -lrth
+                    echo "GIT URL= " $GIT_URL
+                    echo "GIT_BRANCH= " $GIT_BRANCH
+                    echo "Message from CHECKOUT"
+                    env
+                '''
+            }
+        }
+    }
+}

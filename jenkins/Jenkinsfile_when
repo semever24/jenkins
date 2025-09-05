@@ -1,0 +1,33 @@
+pipeline {
+    agent any     
+
+    parameters {       
+        choice choices: ['STAGE1', 'STAGE2'], description: 'Choose', name: 'CHOICE'
+      }
+
+    stages {
+        stage('STAGE1'){           
+            when {
+                expression{
+                    params.CHOICE == 'STAGE1'
+                }
+            }
+            steps {
+                sh 'sleep 10'
+                echo "This is from STAGE1"
+            }
+        }  
+
+        stage('STAGE2'){           
+            when {
+                expression{
+                    params.CHOICE == 'STAGE2'
+                }
+            }
+            steps {
+                sh 'sleep 10'
+                echo "This is from STAGE2"
+            }
+        }       
+    }
+}

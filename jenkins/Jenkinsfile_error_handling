@@ -1,0 +1,43 @@
+pipeline {
+    agent any     
+
+    stages {
+        stage('STAGE1'){    
+            steps {
+                sh 'sleep 5'
+                echo "This is from STAGE1"
+            }
+        }  
+
+        stage('STAGE2'){ 
+            steps { 
+                catchError(stageResult: 'FAILURE', buildResult: 'SUCCESS') {
+                    sh 'sleep 5'
+                    sh 'exit 1'
+                    echo "This is from STAGE2"
+                }
+             } 
+          }       
+
+        stage('STAGE3'){ 
+               steps {
+                    sh 'sleep 5'
+                    echo "This is from STAGE3"
+                }
+            }     
+        
+        stage('STAGE4'){ 
+                steps {
+                    sh 'sleep 5'
+                    echo "This is from STAGE4"
+                }
+            }       
+
+        stage('STAGE5'){ 
+            steps {
+                    sh 'sleep 5'
+                    echo "This is from STAGE5"
+                }
+            }       
+    }
+}

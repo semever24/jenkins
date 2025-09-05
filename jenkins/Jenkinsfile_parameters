@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+   parameters {
+        booleanParam defaultValue: false, description: 'Boolean', name: 'BOOLEAN_PARAM'
+        string description: 'String', name: 'STRING_PARAM', trim: true
+        choice choices: ['option1', 'option2', 'option3', 'option4', 'option5'], description: 'Choice', name: 'CHOICE_PARAM'
+      }
+
+
+    stages {
+        stage('STAGE1') {            
+            steps{
+                sh 'sleep 5'
+                echo "Boolean= ${params.BOOLEAN_PARAM}"
+                echo "String= ${params.STRING_PARAM}"
+                echo "Choice= ${params.CHOICE_PARAM}"
+            }
+        }  
+
+        stage('STAGE2') {            
+            steps{
+                sh 'sleep 10'                
+            }
+        }               
+    }
+}

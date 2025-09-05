@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+
+    environment{
+        GIT_URL = 'https://github.com/semever24/jenkins.git'
+        GIT_BRANCH = 'main'
+        GIT_CREDENTIALS = 'github'
+    }
+
+    stages{
+        stage('GIT_CHECKOUT'){
+            steps{
+                //Java groovy format
+                script{
+                    git branch: "${env.GIT_BRANCH}", 
+                    credentialsId: "${env.GIT_CREDENTIALS}", 
+                    url: "${env.GIT_URL}"
+                }
+            }
+        }
+
+        stage('CHECK'){
+            steps{
+                //Shell format
+                sh '''
+                    ls -lrth
+                    echo $GIT_URL
+                    echo $GIT_BRANCH
+                    env
+                '''
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('STAGE1') {
+            steps {
+                sh 'sleep 4'
+            }
+        }
+        stage('TEST1') {
+            steps {
+                sh 'sleep 4'
+            }
+        }
+        stage('TEST2') {
+            steps {
+                sh 'sleep 4'
+            }
+        }
+    stage('STAGE 2') {
+        steps {
+            sh 'sleep 4'
+        }
+    } 
+
+}
+}
